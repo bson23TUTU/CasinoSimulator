@@ -39,6 +39,9 @@ public class MainMenuView extends JFrame {
     private JLabel gameRules;
     private JLabel gamemodeHelp;
     private JLabel difficultyHelp;
+    private JPanel headerPanel;
+    private JLabel titleLabel;
+
 
     /**
      * Constructor.
@@ -110,7 +113,7 @@ public class MainMenuView extends JFrame {
         //MainMenuModel.getMoney();
         moneyTotal = new JLabel("Total balance: $" + MainMenuModel.getMoney());
         moneyTotal.setForeground(Color.WHITE);
-        moneyTotal.setBounds(10, 570, 300, 50);
+        moneyTotal.setBounds(10, 520, 300, 50);
         moneyTotal.setFont(new Font("Dialog", Font.BOLD, 20));
 
         //updates money value when player mouses over background
@@ -176,7 +179,7 @@ public class MainMenuView extends JFrame {
                 difficulty = difficultySelect.getItemAt(difficultySelect.getSelectedIndex());
                 if(MainMenuModel.getMoney() <= 5 && gamemode == "Simulated Casino"){   //if player has no money and wants to play simulated casino, add 100 and notify
                     MainMenuModel.addMoney();
-                    infoBox("$100 has been added", "You Ran Out of Money!");
+                    bankruptBox();
                     setVisible(false);
                     menuModel.startSlot();
                 }
@@ -222,7 +225,7 @@ public class MainMenuView extends JFrame {
                 difficulty = difficultySelect.getItemAt(difficultySelect.getSelectedIndex());
                 if(MainMenuModel.getMoney() < 5 && gamemode == "Simulated Casino") { //if player has no money and wants to play simulated casino, add 100 and notify
                     MainMenuModel.addMoney();
-                    infoBox("$100 has been added", "You Ran Out of Money!");
+                    bankruptBox();
                     setVisible(false);
                     menuModel.startBlackjack();
                 }
@@ -325,6 +328,15 @@ public class MainMenuView extends JFrame {
     {
         JOptionPane.showMessageDialog(null, infoMessage, "Attention! " + titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
+    public static void bankruptBox() {
+        JOptionPane.showMessageDialog(
+                null,
+                "You are bankrupt!",
+                "Bankrupt",
+                JOptionPane.WARNING_MESSAGE
+        );
+    }
+
 
     /**
      * creates pop-up window with rules for blackjack and slot machine
@@ -444,7 +456,7 @@ public class MainMenuView extends JFrame {
 
         // Load background
         try {
-            img = ImageIO.read(new File(path + "/Assets/MainMenu/MenuBackground1.jpg"));
+            img = ImageIO.read(new File(path + "/Assets/MainMenu/MenuBackground2.jpg"));
         }
         catch (Exception e) { System.out.println("Cannot load background image!"); }
         background = new JLabel(new ImageIcon(img));
