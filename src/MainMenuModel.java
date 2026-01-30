@@ -33,7 +33,7 @@ public class MainMenuModel {
             myReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("No save data.");
-            money = 100;
+            money = 5000;
         }
         menuView = new MainMenuView(this);
     }
